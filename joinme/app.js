@@ -8,7 +8,15 @@ const tripRoutes = require("./backend/routes/trips");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const serviceAccount = require("./joinme-web-82168-firebase-adminsdk-fbsvc-1453f63390.json");
+let serviceAccount;
+
+if (process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64) {
+  // Railway (decode base64 string)
+  const decoded = Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64, 'base64').toString('utf8');
+  serviceAccount = JSON.parse(decoded);
+} else {
+  serviceAccount = require("./joinme-web-82168-firebase-adminsdk-fbsvc-1453f63390.json");
+}
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -48,5 +56,5 @@ app.get("*", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
