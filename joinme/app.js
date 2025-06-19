@@ -57,3 +57,5 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
+console.log("ENV LOADED:", !!process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64);
+
