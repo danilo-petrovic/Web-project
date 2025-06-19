@@ -9,6 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 let serviceAccount;
+console.log("ENV CHECK:", !!process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64);
 
 if (process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64) {
   const decoded = Buffer.from(process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64, 'base64').toString('utf8');
@@ -57,5 +58,3 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
-console.log("ENV LOADED:", !!process.env.GOOGLE_APPLICATION_CREDENTIALS_BASE64);
-
